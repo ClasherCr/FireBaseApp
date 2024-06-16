@@ -28,17 +28,21 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        DatabaseReference myRef = database.getReference("message");
+        DatabaseReference myRef = database.getReference("Users");
 
-        myRef.setValue("Hello, World This is a test!");
+      //  User user1 = new User("Jash","Jash@gmail.com");
+        //myRef.setPriority(user1);
+
+       // myRef.setValue("Hello, World This is a test!");
 
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView textView = findViewById(R.id.textView);
 
         myRef.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String newvalue = snapshot.getValue(String.class);
-                textView.setText(newvalue);
+               User user = snapshot.getValue(User.class);
+                textView.setText("Email: "+user.getEmail());
             }
 
             @Override
